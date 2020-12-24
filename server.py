@@ -346,7 +346,7 @@ def handle(new_socket, addr):
 if __name__ == "__main__":
     try:
         main_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        main_socket.bind(('127.0.0.1', 7890))  # 服务器绑定的ip和port
+        main_socket.bind(('0.0.0.0', 7890))  # 服务器绑定的ip和port
         main_socket.listen(128)  # 最大挂起数
         print("服务器启动成功，开始监听...")
         while True:

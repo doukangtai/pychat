@@ -11,7 +11,8 @@ class Client:
     def __init__(self):
         print("初始化tcp多人聊天室客户端")
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.client_socket.connect(('127.0.0.1', 7890))
+        # self.client_socket.connect(('127.0.0.1', 7890))
+        self.client_socket.connect(('47.105.170.162', 7890))
 
     def send_login_info(self, username, password):
         """
