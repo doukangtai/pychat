@@ -175,7 +175,7 @@ def online_notice(new_socket):
     """
     welcome_str = "******** Welcome " \
                   + socket2user[new_socket] + \
-                  " come to MyChat! ********"
+                  " come to PyChat! ********"
     # 向所有在线用户发送新用户上线通知，#!notices#! 标志此类消息
     for socket in online_socket:
         socket.sendall(("#!notices#!" + welcome_str).encode("utf-8"))
@@ -191,7 +191,7 @@ def histories_msg(new_socket):
     fetchall = cursor.fetchall()
     cursor.close()
     for data in fetchall:
-        time.sleep(0.05)
+        time.sleep(0.08)
         new_socket.sendall(("#!history#!"
                             + data[1] + "#!"
                             + data[2] + "#!"

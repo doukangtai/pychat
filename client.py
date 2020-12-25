@@ -150,7 +150,7 @@ class LoginPanel:
         """
         放置界面标题
         """
-        title_lable = Label(self.login_frame, text="MyChat - Login", font=("Microsoft Yahei", 16),
+        title_lable = Label(self.login_frame, text="PyChat - Login", font=("Microsoft Yahei", 16),
                             fg="black", bg="lightblue")
         title_lable.pack(ipady=10, fill=X)
 
@@ -312,7 +312,7 @@ class RegPanel:
 
     def set_title(self):
         """放置界面标题"""
-        title_lable = Label(self.reg_frame, text="MyChat - Register", font=("Microsoft Yahei", 16), fg="black", bg="lightblue")
+        title_lable = Label(self.reg_frame, text="PyChat - Register", font=("Microsoft Yahei", 16), fg="black", bg="lightblue")
         title_lable.pack(ipady=10, fill=X)
 
     def set_form(self):
@@ -483,7 +483,7 @@ class MainPanel:
         """
         给主界面设置其他配置
         """
-        self.main_frame.title("MyChat")
+        self.main_frame.title("PyChat")
         self.main_frame.configure(background="lightblue")
 
         # 设置窗口关闭按钮时，调用方法，用于退出时关闭socket连接
@@ -557,7 +557,7 @@ class MainPanel:
         self.config_for_mian_panel()
 
         # 设置标题
-        Label(self.main_frame, text="MyChat：" + self.username, font=("Microsoft Yahei", 13), bg="lightblue", fg="black").grid(row=0, column=0, ipady=10, padx=10, columnspan=2, sticky=W)
+        Label(self.main_frame, text="PyChat：" + self.username, font=("Microsoft Yahei", 13), bg="lightblue", fg="black").grid(row=0, column=0, ipady=10, padx=10, columnspan=2, sticky=W)
         self.set_online_list()
         self.set_msg_box()
         self.set_input_box()
