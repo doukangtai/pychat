@@ -310,6 +310,18 @@ class RegPanel:
         self.reg_frame.resizable(width=False, height=False)
         self.reg_frame.title("Register")
 
+
+    def config_for_reg_panel_find(self):
+        """给注册界面设置其他配置"""
+        self.reg_frame.configure(background="white")
+
+        # 设置窗口关闭按钮时，调用方法，用于退出时关闭socket连接
+        self.reg_frame.protocol("WM_DELETE_WINDOW", self.close_callback)
+
+        # 界面可调整大小
+        self.reg_frame.resizable(width=False, height=False)
+        self.reg_frame.title("Change")
+
     def set_title(self):
         """放置界面标题"""
         title_lable = Label(self.reg_frame, text="PyChat - Register", font=("Microsoft Yahei", 16), fg="black", bg="white")
@@ -329,6 +341,32 @@ class RegPanel:
         # 设置用户名、密码标签
         Label(form_frame, text="用户名：", font=("Microsoft Yahei", 12), bg="white", fg="black").grid(row=0, column=1, pady=20)
         Label(form_frame, text="密码：", font=("Microsoft Yahei", 12), bg="white", fg="black").grid(row=1, column=1, pady=20)
+        Label(form_frame, text="验证密码：", font=("Microsoft Yahei", 12), bg="white", fg="black").grid(row=2, column=1, pady=20)
+        Label(form_frame, text="密保信息：", font=("Microsoft Yahei", 12), bg="white", fg="black").grid(row=3, column=1, pady=20)
+
+        # 设置变量，存储用户名和密码
+        self.username = StringVar()
+        self.password = StringVar()
+        self.confirm = StringVar()
+        self.check = StringVar()
+
+        # 设置输入框
+        Entry(form_frame, textvariable=self.username, bg="#e3e3e3", width=30).grid(row=0, column=2, ipady=1)
+        Entry(form_frame, textvariable=self.password, show="*", bg="#e3e3e3", width=30) \
+            .grid(row=1, column=2, ipady=1)
+        Entry(form_frame, textvariable=self.confirm, show="*", bg="#e3e3e3", width=30) \
+            .grid(row=2, column=2, ipady=1)
+        Entry(form_frame, textvariable=self.check, bg="#e3e3e3", width=30).grid(row=3, column=2, ipady=1)
+
+
+    def set_form_find(self):
+        """放置注册表单"""
+        form_frame = Frame(self.reg_frame, bg="white")
+        form_frame.pack(fill=X, padx=20, pady=10)
+
+        # 设置用户名、密码标签
+        Label(form_frame, text="用户名：", font=("Microsoft Yahei", 12), bg="white", fg="black").grid(row=0, column=1, pady=20)
+        Label(form_frame, text="新密码：", font=("Microsoft Yahei", 12), bg="white", fg="black").grid(row=1, column=1, pady=20)
         Label(form_frame, text="验证密码：", font=("Microsoft Yahei", 12), bg="white", fg="black").grid(row=2, column=1, pady=20)
         Label(form_frame, text="密保信息：", font=("Microsoft Yahei", 12), bg="white", fg="black").grid(row=3, column=1, pady=20)
 
@@ -384,9 +422,9 @@ class RegPanel:
     def show_find(self):
         """注册界面布局"""
         self.set_panel_position()
-        self.config_for_reg_panel()
+        self.config_for_reg_panel_find()
         self.set_title_find()
-        self.set_form()
+        self.set_form_find()
         self.set_btn_find()
 
         # 启动注册界面，让其显示
