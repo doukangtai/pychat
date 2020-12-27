@@ -312,6 +312,12 @@ class RegPanel:
 
     def set_title(self):
         """放置界面标题"""
+        title_lable = Label(self.reg_frame, text="PyChat - Register", font=("Microsoft Yahei", 16), fg="black", bg="white")
+        title_lable.pack(ipady=10, fill=X)
+
+
+    def set_title_find(self):
+        """放置界面标题"""
         title_lable = Label(self.reg_frame, text="PyChat - Change", font=("Microsoft Yahei", 16), fg="black", bg="white")
         title_lable.pack(ipady=10, fill=X)
 
@@ -379,7 +385,7 @@ class RegPanel:
         """注册界面布局"""
         self.set_panel_position()
         self.config_for_reg_panel()
-        self.set_title()
+        self.set_title_find()
         self.set_form()
         self.set_btn_find()
 
