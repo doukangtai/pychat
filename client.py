@@ -312,7 +312,7 @@ class RegPanel:
 
     def set_title(self):
         """放置界面标题"""
-        title_lable = Label(self.reg_frame, text="PyChat - Register", font=("Microsoft Yahei", 16), fg="black", bg="white")
+        title_lable = Label(self.reg_frame, text="PyChat - Change", font=("Microsoft Yahei", 16), fg="black", bg="white")
         title_lable.pack(ipady=10, fill=X)
 
     def set_form(self):
