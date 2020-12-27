@@ -7,12 +7,12 @@ import re
 
 
 class Client:
-    """创建客户端的模板类"""
+    """创建客户端的模板类   pyinstaller -F xxx.py --noconsole"""
     def __init__(self):
         print("初始化tcp多人聊天室客户端")
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        # self.client_socket.connect(('127.0.0.1', 7890))
-        self.client_socket.connect(('47.105.170.162', 7890))
+        self.client_socket.connect(('127.0.0.1', 7890))
+        # self.client_socket.connect(('47.105.170.162', 7890))
 
     def send_login_info(self, username, password):
         """
@@ -142,7 +142,7 @@ class LoginPanel:
         """
         给登陆界面设置其他配置
         """
-        self.login_frame.configure(background="lightblue")
+        self.login_frame.configure(background="white")
         self.login_frame.resizable(width=False, height=False)  # 设置界面大小可调
         self.login_frame.title("Login")
 
@@ -151,7 +151,7 @@ class LoginPanel:
         放置界面标题
         """
         title_lable = Label(self.login_frame, text="PyChat - Login", font=("Microsoft Yahei", 16),
-                            fg="black", bg="lightblue")
+                            fg="black", bg="white")
         title_lable.pack(ipady=10, fill=X)
 
     def set_form(self):
@@ -159,12 +159,12 @@ class LoginPanel:
         放置登陆表单
         """
         # 1、创建框架
-        form_frame = Frame(self.login_frame, bg="lightblue")
+        form_frame = Frame(self.login_frame, bg="white")
         form_frame.pack(fill=X, padx=20, pady=10)
 
         # 2、添加用户名、密码标签，并设置字体、背景色、前景色并用grid布局
-        Label(form_frame, text="用户名：", font=("Microsoft Yahei", 12), bg="lightblue", fg="black").grid(row=0, column=3, pady=20)
-        Label(form_frame, text="密码：", font=("Microsoft Yahei", 12), bg="lightblue", fg="black").grid(row=1, column=3, pady=20)
+        Label(form_frame, text="用户名：", font=("Microsoft Yahei", 12), bg="white", fg="black").grid(row=0, column=3, pady=20)
+        Label(form_frame, text="密码：", font=("Microsoft Yahei", 12), bg="white", fg="black").grid(row=1, column=3, pady=20)
 
         # 3、设置输入框，储存用户输入的用户名和密码
         self.username = StringVar()
@@ -176,20 +176,20 @@ class LoginPanel:
         """
         放置注册和登陆按钮
         """
-        btn_frame = Frame(self.login_frame, bg="lightblue")
-        btn_reg = Button(btn_frame, text="注册", bg="lightblue", fg="black", width=7,
+        btn_frame = Frame(self.login_frame, bg="white")
+        btn_reg = Button(btn_frame, text="注册", bg="white", fg="black", width=7,
                               font=('Microsoft Yahei', 12), command=self.reg_func)
         btn_reg.pack(side=LEFT, ipady=3)
 
-        btn_find = Button(btn_frame, text="修改密码", bg="lightblue", fg="black", width=7,
+        btn_find = Button(btn_frame, text="修改密码", bg="white", fg="black", width=7,
                                 font=('Microsoft Yahei', 12), command=self.login_find)
         btn_find.pack(side=RIGHT, ipady=3, padx=6)
 
-        btn_logout = Button(btn_frame, text="注销", bg="lightblue", fg="black", width=7,
+        btn_logout = Button(btn_frame, text="注销", bg="white", fg="black", width=7,
                                 font=('Microsoft Yahei', 12), command=self.login_logout)
         btn_logout.pack(side=RIGHT, ipady=3, padx=6)
 
-        btn_login = Button(btn_frame, text="登录", bg="lightblue", fg="black", width=7,
+        btn_login = Button(btn_frame, text="登录", bg="white", fg="black", width=7,
                                 font=('Microsoft Yahei', 12), command=self.login_func)
         btn_login.pack(side=RIGHT, ipady=3, padx=6)
         btn_frame.pack(fill=X, padx=20, pady=20)
@@ -301,7 +301,7 @@ class RegPanel:
 
     def config_for_reg_panel(self):
         """给注册界面设置其他配置"""
-        self.reg_frame.configure(background="lightblue")
+        self.reg_frame.configure(background="white")
 
         # 设置窗口关闭按钮时，调用方法，用于退出时关闭socket连接
         self.reg_frame.protocol("WM_DELETE_WINDOW", self.close_callback)
@@ -312,19 +312,19 @@ class RegPanel:
 
     def set_title(self):
         """放置界面标题"""
-        title_lable = Label(self.reg_frame, text="PyChat - Register", font=("Microsoft Yahei", 16), fg="black", bg="lightblue")
+        title_lable = Label(self.reg_frame, text="PyChat - Register", font=("Microsoft Yahei", 16), fg="black", bg="white")
         title_lable.pack(ipady=10, fill=X)
 
     def set_form(self):
         """放置注册表单"""
-        form_frame = Frame(self.reg_frame, bg="lightblue")
+        form_frame = Frame(self.reg_frame, bg="white")
         form_frame.pack(fill=X, padx=20, pady=10)
 
         # 设置用户名、密码标签
-        Label(form_frame, text="用户名：", font=("Microsoft Yahei", 12), bg="lightblue", fg="black").grid(row=0, column=1, pady=20)
-        Label(form_frame, text="密码：", font=("Microsoft Yahei", 12), bg="lightblue", fg="black").grid(row=1, column=1, pady=20)
-        Label(form_frame, text="验证密码：", font=("Microsoft Yahei", 12), bg="lightblue", fg="black").grid(row=2, column=1, pady=20)
-        Label(form_frame, text="密保信息：", font=("Microsoft Yahei", 12), bg="lightblue", fg="black").grid(row=3, column=1, pady=20)
+        Label(form_frame, text="用户名：", font=("Microsoft Yahei", 12), bg="white", fg="black").grid(row=0, column=1, pady=20)
+        Label(form_frame, text="密码：", font=("Microsoft Yahei", 12), bg="white", fg="black").grid(row=1, column=1, pady=20)
+        Label(form_frame, text="验证密码：", font=("Microsoft Yahei", 12), bg="white", fg="black").grid(row=2, column=1, pady=20)
+        Label(form_frame, text="密保信息：", font=("Microsoft Yahei", 12), bg="white", fg="black").grid(row=3, column=1, pady=20)
 
         # 设置变量，存储用户名和密码
         self.username = StringVar()
@@ -342,24 +342,24 @@ class RegPanel:
 
     def set_btn(self):
         """放置取消和注册按钮"""
-        btn_frame = Frame(self.reg_frame, bg="lightblue")
-        btn_quit = Button(btn_frame, text="取消", bg="lightblue", fg="black", width=15,
+        btn_frame = Frame(self.reg_frame, bg="white")
+        btn_quit = Button(btn_frame, text="取消", bg="white", fg="black", width=15,
                           font=('Microsoft Yahei', 12), command=self.quit_func)
         btn_quit.pack(side=LEFT, ipady=3)
 
-        btn_reg = Button(btn_frame, text="注册", bg="lightblue", fg="black", width=15,
+        btn_reg = Button(btn_frame, text="注册", bg="white", fg="black", width=15,
                          font=('Microsoft Yahei', 12), command=self.reg_func)
         btn_reg.pack(side=RIGHT, ipady=3)
         btn_frame.pack(fill=X, padx=20, pady=20)
 
     def set_btn_find(self):
         """放置取消和注册按钮"""
-        btn_frame = Frame(self.reg_frame, bg="lightblue")
-        btn_quit = Button(btn_frame, text="取消", bg="lightblue", fg="black", width=15,
+        btn_frame = Frame(self.reg_frame, bg="white")
+        btn_quit = Button(btn_frame, text="取消", bg="white", fg="black", width=15,
                           font=('Microsoft Yahei', 12), command=self.quit_func)
         btn_quit.pack(side=LEFT, ipady=3)
 
-        btn_reg = Button(btn_frame, text="修改密码", bg="lightblue", fg="black", width=15,
+        btn_reg = Button(btn_frame, text="修改密码", bg="white", fg="black", width=15,
                          font=('Microsoft Yahei', 12), command=self.repsd_func)
         btn_reg.pack(side=RIGHT, ipady=3)
         btn_frame.pack(fill=X, padx=20, pady=20)
@@ -484,7 +484,7 @@ class MainPanel:
         给主界面设置其他配置
         """
         self.main_frame.title("PyChat")
-        self.main_frame.configure(background="lightblue")
+        self.main_frame.configure(background="white")
 
         # 设置窗口关闭按钮时，调用方法，用于退出时关闭socket连接
         self.main_frame.protocol("WM_DELETE_WINDOW", self.close_callback)
@@ -496,7 +496,7 @@ class MainPanel:
         设置在线用户列表
         """
         online_list_var = StringVar()  # 设置变量，储存在线列表中的值
-        self.online_list_box = Listbox(self.main_frame, selectmode=NO, listvariable=online_list_var, bg="lightblue", fg="black", font=("Microsoft Yahei", 14), highlightcolor="white")
+        self.online_list_box = Listbox(self.main_frame, selectmode=NO, listvariable=online_list_var, bg="white", fg="black", font=("Microsoft Yahei", 14), highlightcolor="white")
         self.online_list_box.grid(row=1, column=0, rowspan=3, sticky=N + S, padx=10, pady=(0, 5))
 
         # 给在线列表设置滚动栏
@@ -516,7 +516,7 @@ class MainPanel:
         msg_sr_bar.grid(row=1, column=1, sticky=E + N + S, padx=(0, 10))
 
         # 创建消息框
-        self.msg_box = Text(self.main_frame, bg="lightblue", height=1, highlightcolor="white", highlightthickness=1)
+        self.msg_box = Text(self.main_frame, bg="white", height=1, highlightcolor="white", highlightthickness=1)
 
         # 显示消息的文本框不可编辑，当需要修改内容时再修改版为可以编辑模式 NORMAL
         # 消息框的其他设置，以及位置摆放
@@ -537,7 +537,7 @@ class MainPanel:
         send_sr_bar.grid(row=2, column=1, sticky=E + N + S, padx=(0, 10), pady=10)
 
         # 设置聊天输入窗口
-        self.input_box = Text(self.main_frame, bg="lightblue", height=11, highlightcolor="white", highlightbackground="#444444", highlightthickness=3)
+        self.input_box = Text(self.main_frame, bg="white", height=11, highlightcolor="white", highlightbackground="#444444", highlightthickness=3)
         self.input_box.see(END)
         self.input_box.grid(row=2, column=1, sticky=W + E + N + S, padx=(10, 30), pady=10)
 
@@ -548,8 +548,8 @@ class MainPanel:
         """
         设置发送和清空按钮
         """
-        Button(self.main_frame, text="Send", bg="lightblue", font=("Microsoft Yahei", 14), fg="black", command=self.send_func).grid(row=3, column=1, pady=5, padx=10, sticky=W, ipady=3, ipadx=10)
-        Button(self.main_frame, text="Clear", bg="lightblue", font=("Microsoft Yahei", 14), fg="black", command=self.clear_input_box).grid(row=3, column=1, pady=5, sticky=W, padx=(110, 0), ipady=3, ipadx=10)
+        Button(self.main_frame, text="Send", bg="white", font=("Microsoft Yahei", 14), fg="black", command=self.send_func).grid(row=3, column=1, pady=5, padx=10, sticky=W, ipady=3, ipadx=10)
+        Button(self.main_frame, text="Clear", bg="white", font=("Microsoft Yahei", 14), fg="black", command=self.clear_input_box).grid(row=3, column=1, pady=5, sticky=W, padx=(110, 0), ipady=3, ipadx=10)
 
     def show(self):
         """主界面布局"""
@@ -557,7 +557,7 @@ class MainPanel:
         self.config_for_mian_panel()
 
         # 设置标题
-        Label(self.main_frame, text="PyChat：" + self.username, font=("Microsoft Yahei", 13), bg="lightblue", fg="black").grid(row=0, column=0, ipady=10, padx=10, columnspan=2, sticky=W)
+        Label(self.main_frame, text="PyChat：" + self.username, font=("Microsoft Yahei", 13), bg="white", fg="black").grid(row=0, column=0, ipady=10, padx=10, columnspan=2, sticky=W)
         self.set_online_list()
         self.set_msg_box()
         self.set_input_box()
