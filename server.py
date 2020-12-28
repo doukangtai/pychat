@@ -77,7 +77,8 @@ def add_user_database(new_socket, username, encrypted_psw, check):
             new_socket.sendall("抱歉，用户名已存在！".encode("utf-8"))
             return
         else:
-            cursor.execute("insert into user(username, password, verify) values(%s,%s,%s)", (username, encrypted_psw, check))
+            cursor.execute("insert into user(username, password, verify) values(%s,%s,%s)",
+                           (username, encrypted_psw, check))
             conn.commit()
             cursor.close()
             new_socket.sendall("注册成功！".encode("utf-8"))
@@ -190,12 +191,24 @@ def histories_msg(new_socket):
     cursor.execute("select * from msg")
     fetchall = cursor.fetchall()
     cursor.close()
+    uname = socket2user[new_socket]
     for data in fetchall:
         time.sleep(0.08)
-        new_socket.sendall(("#!history#!"
-                            + data[1] + "#!"
-                            + data[2] + "#!"
-                            + data[3]).encode("utf-8"))
+        ct = re.split('@', data[3])
+        if len(ct) >= 2:
+            print(ct[1])
+            print(uname)
+            if ct[1] == uname:
+                print("ttt")
+                new_socket.sendall(("#!history#!"
+                                    + data[1] + "#!"
+                                    + data[2] + "#!"
+                                    + data[3]).encode("utf-8"))
+        else:
+            new_socket.sendall(("#!history#!"
+                                + data[1] + "#!"
+                                + data[2] + "#!"
+                                + data[3]).encode("utf-8"))
 
 
 def offline_notice(offline_socket):
@@ -268,6 +281,7 @@ def handle_logout(new_socket):
     encrypted_psw = encrypt_psw(password)
     delete_user_database(new_socket, username, encrypted_psw)
 
+
 def handle_repsd(new_socket):
     username_psw = new_socket.recv(1024).decode("utf-8")
     # 组装后的用户格式为 username#!#!password
@@ -277,6 +291,7 @@ def handle_repsd(new_socket):
     check = ret.group(3)
     encrypted_psw = encrypt_psw(password)
     update_user_database(new_socket, username, encrypted_psw, check)
+
 
 def handle_msg(new_socket):
     """
@@ -293,10 +308,32 @@ def handle_msg(new_socket):
                     content))
     conn.commit()
     cursor.close()
-    for socket in online_socket:
-        socket.sendall(("#!message#!"
-                        + socket2user[new_socket] + "#!"
-                        + content).encode("utf-8"))
+    ret = re.match(r"@(.*)@", content)
+    if ret is None:
+        for socket in online_socket:
+            socket.sendall(("#!message#!"
+                            + socket2user[new_socket] + "#!"
+                            + content).encode("utf-8"))
+        # return
+    else:
+        ct = re.split('@', content)
+        name = ct[1]
+        msg = ct[2]
+        socket_user_keys = socket2user.keys()
+        for socket_user_key in socket_user_keys:
+            if name == socket2user[socket_user_key]:
+                socket_user_key.sendall(("#!message#!"
+                            + name + "#!"
+                            + content).encode("utf-8"))
+                new_socket.sendall(("#!message#!"
+                            + name + "#!"
+                            + content).encode("utf-8"))
+    #             return
+    #
+    # for socket in online_socket:
+    #     socket.sendall(("#!message#!"
+    #                     + socket2user[new_socket] + "#!"
+    #                     + content).encode("utf-8"))
 
 
 def handle(new_socket, addr):
