@@ -4,6 +4,8 @@ import time
 from tkinter import messagebox
 from threading import Thread
 import re
+import os
+import webbrowser
 
 
 class Client:
@@ -588,12 +590,17 @@ class MainPanel:
         send_sr_bar["command"] = self.input_box.yview
         self.input_box["yscrollcommand"] = send_sr_bar.set
 
+    def open_brw(self):
+        url = 'http://localhost:8000'
+        webbrowser.open_new_tab(url)
+
     def set_btn(self):
         """
         设置发送和清空按钮
         """
         Button(self.main_frame, text="Send", bg="white", font=("Microsoft Yahei", 14), fg="black", command=self.send_func).grid(row=3, column=1, pady=5, padx=10, sticky=W, ipady=3, ipadx=10)
         Button(self.main_frame, text="Clear", bg="white", font=("Microsoft Yahei", 14), fg="black", command=self.clear_input_box).grid(row=3, column=1, pady=5, sticky=W, padx=(110, 0), ipady=3, ipadx=10)
+        Button(self.main_frame, text="Video", bg="white", font=("Microsoft Yahei", 14), fg="black", command=self.open_brw).grid(row=3, column=1, pady=5, sticky=W, padx=(210, 0), ipady=3, ipadx=10)
 
     def show(self):
         """主界面布局"""
@@ -731,8 +738,11 @@ class MainPanel:
         self.client.close()
         self.close()
 
+def video():
+    os.system("python -m http.server 8000")
 
 if __name__ == "__main__":
+    Thread(target=video, args=()).start()
     login_panel = LoginPanel()
     login_panel.show()
 

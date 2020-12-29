@@ -4,6 +4,7 @@ import hashlib
 import re
 import time
 import pymysql
+import os
 
 conn = pymysql.connect(
     host='127.0.0.1',
